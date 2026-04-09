@@ -12,11 +12,13 @@ import HomeIcon from "@mui/icons-material/Home";
 import PeopleIcon from "@mui/icons-material/People";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import InfoIcon from "@mui/icons-material/Info";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const tabs = [
   { label: "Home", icon: <HomeIcon />, path: "/" },
   { label: "Directory", icon: <PeopleIcon />, path: "/directory" },
   { label: "Calendar", icon: <CalendarMonthIcon />, path: "/calendar" },
+  { label: "Newsletter", icon: <ArticleIcon />, path: "/newsletters" },
   { label: "About Us", icon: <InfoIcon />, path: "/about" },
 ];
 

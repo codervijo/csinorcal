@@ -11,6 +11,7 @@ import AboutDetailPage from "./pages/AboutDetailPage";
 import NewsDetailPage from "./pages/NewsDetailPage";
 import SettingsPage from "./pages/SettingsPage";
 import ContributionsPage from "./pages/ContributionsPage";
+import NewsletterPage from "./pages/NewsletterPage";
 import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/news/:id" element={<NewsDetailPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/contributions" element={<ContributionsPage />} />
+            <Route path="/newsletters" element={<NewsletterPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

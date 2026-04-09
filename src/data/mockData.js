@@ -125,6 +125,44 @@ export const photoAlbums = [
   },
 ];
 
+export const newsletters = [
+  {
+    id: "2026-04",
+    title: "April 2026 Newsletter",
+    date: "Apr 1, 2026",
+    file: "/newsletters/newsletter-2026-04.pdf",
+    isCurrent: true,
+  },
+  {
+    id: "2026-03",
+    title: "March 2026 Newsletter",
+    date: "Mar 1, 2026",
+    file: "/newsletters/newsletter-2026-03.pdf",
+    isCurrent: false,
+  },
+  {
+    id: "2026-02",
+    title: "February 2026 Newsletter",
+    date: "Feb 1, 2026",
+    file: "/newsletters/newsletter-2026-02.pdf",
+    isCurrent: false,
+  },
+  {
+    id: "2026-01",
+    title: "January 2026 Newsletter",
+    date: "Jan 1, 2026",
+    file: "/newsletters/newsletter-2026-01.pdf",
+    isCurrent: false,
+  },
+  {
+    id: "2025-12",
+    title: "December 2025 Newsletter",
+    date: "Dec 1, 2025",
+    file: "/newsletters/newsletter-2025-12.pdf",
+    isCurrent: false,
+  },
+];
+
 // API abstraction layer for future ICONCMO integration
 export const api = {
   getFamilies: () => Promise.resolve(families),
@@ -135,4 +173,5 @@ export const api = {
   getNewsArticle: (id) => Promise.resolve(news.find((n) => n.id === id)),
   getAboutGroups: () => Promise.resolve(aboutGroups),
   getAboutGroup: (id) => Promise.resolve(aboutGroups.find((g) => g.id === id)),
+  getNewsletters: () => Promise.resolve(newsletters),
 };
