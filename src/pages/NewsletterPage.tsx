@@ -9,6 +9,13 @@ import ListItemText from "@mui/material/ListItemText";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { newsletters } from "../data/mockData";
 
+function getPdfSrc(file: string) {
+  const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  if (isLocalhost) return file;
+  const absoluteUrl = `${window.location.origin}${file}`;
+  return `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+}
+
 export default function NewsletterPage() {
   const current = newsletters.find((n) => n.isCurrent);
   const archived = newsletters.filter((n) => !n.isCurrent);
@@ -40,7 +47,7 @@ export default function NewsletterPage() {
         </Box>
         <Box
           component="iframe"
-          src={selected.file}
+          src={getPdfSrc(selected.file)}
           title={selected.title}
           sx={{ width: "100%", height: "520px", border: "none", display: "block" }}
         />
