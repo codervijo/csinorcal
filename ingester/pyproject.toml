@@ -1,0 +1,11 @@
+[project]
+name = "csi-ingester"
+version = "0.1.0"
+description = "Google Photos album ingester for csinorcal.church"
+requires-python = ">=3.12"
+dependencies = [
+    "playwright==1.46.0",
+]
+
+[tool.uv]
+package = false

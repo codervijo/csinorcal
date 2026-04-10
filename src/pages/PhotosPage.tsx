@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -15,15 +16,22 @@ function openAlbum(url: string) {
 }
 
 function AlbumCover({ album, height }: { album: Album; height: number }) {
-  return album.coverUrl ? (
-    <CardMedia
-      component="img"
-      height={height}
-      image={album.coverUrl}
-      alt={album.title}
-      sx={{ objectFit: "cover" }}
-    />
-  ) : (
+  const [imgFailed, setImgFailed] = useState(false);
+
+  if (album.coverUrl && !imgFailed) {
+    return (
+      <CardMedia
+        component="img"
+        height={height}
+        image={album.coverUrl}
+        alt={album.title}
+        sx={{ objectFit: "cover" }}
+        onError={() => setImgFailed(true)}
+      />
+    );
+  }
+
+  return (
     <Box
       sx={{
         height,

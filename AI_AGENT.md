@@ -36,3 +36,6 @@ pnpm lint      # run ESLint
 
 ## Out of scope / don't touch
 - <!-- leave blank for user to fill -->
+
+## Status
+- **Next step:** Add authentication (Phase 2 / Phase 3)
