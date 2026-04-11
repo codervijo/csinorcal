@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import EventCard from "../components/EventCard";
-import { events } from "../data/mockData";
+import events from "../data/calendar.json";
 
 export default function CalendarPage() {
   return (

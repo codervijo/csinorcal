@@ -19,30 +19,6 @@ export const contributions = [
   { id: 3, date: "Mar 05, 2026", amount: 300 },
 ];
 
-export const events = [
-  {
-    id: 1,
-    title: "Sunday Service",
-    date: "Every Sunday",
-    time: "10:00 AM",
-    description: "Join us for our weekly Sunday worship service with praise, prayer, and the Word.",
-  },
-  {
-    id: 2,
-    title: "Youth Meeting",
-    date: "Every Friday",
-    time: "6:00 PM",
-    description: "A time for young people to connect, grow in faith, and have fun together.",
-  },
-  {
-    id: 3,
-    title: "Choir Practice",
-    date: "Every Saturday",
-    time: "5:00 PM",
-    description: "Rehearsal for the church choir. All singers welcome!",
-  },
-];
-
 export const news = [
   {
     id: 1,
@@ -154,7 +130,6 @@ export const api = {
   getFamilies: () => Promise.resolve(families),
   getFamily: (id) => Promise.resolve(families.find((f) => f.id === id)),
   getContributions: () => Promise.resolve(contributions),
-  getEvents: () => Promise.resolve(events),
   getNews: () => Promise.resolve(news),
   getNewsArticle: (id) => Promise.resolve(news.find((n) => n.id === id)),
   getAboutGroups: () => Promise.resolve(aboutGroups),
