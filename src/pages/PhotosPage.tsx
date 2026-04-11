@@ -11,6 +11,13 @@ import albums from "../data/photos.json";
 
 type Album = { id: string; title: string; albumUrl: string; coverUrl: string; date: string };
 
+function resolveCover(coverUrl: string): string {
+  if (!coverUrl) return "";
+  // Local covers stored as "covers/<id>.jpg" → served from /album-covers/
+  if (coverUrl.startsWith("covers/")) return "/album-covers/" + coverUrl.slice("covers/".length);
+  return coverUrl;
+}
+
 function openAlbum(url: string) {
   window.open(url, "_blank", "noopener,noreferrer");
 }
@@ -18,30 +25,23 @@ function openAlbum(url: string) {
 function AlbumCover({ album, height }: { album: Album; height: number }) {
   const [imgFailed, setImgFailed] = useState(false);
 
-  if (album.coverUrl && !imgFailed) {
-    return (
-      <CardMedia
-        component="img"
-        height={height}
-        image={album.coverUrl}
-        alt={album.title}
-        sx={{ objectFit: "cover" }}
-        onError={() => setImgFailed(true)}
-      />
-    );
-  }
+  const src = resolveCover(album.coverUrl);
 
   return (
-    <Box
-      sx={{
-        height,
-        bgcolor: "#e8eef5",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <PhotoLibraryIcon sx={{ fontSize: height / 3, color: "#1a3c5e", opacity: 0.35 }} />
+    <Box sx={{ height, overflow: "hidden", bgcolor: "#e8eef5", position: "relative" }}>
+      {src && !imgFailed ? (
+        <Box
+          component="img"
+          src={src}
+          alt={album.title}
+          onError={() => setImgFailed(true)}
+          sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+        />
+      ) : (
+        <Box sx={{ height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <PhotoLibraryIcon sx={{ fontSize: height / 3, color: "#1a3c5e", opacity: 0.35 }} />
+        </Box>
+      )}
     </Box>
   );
 }

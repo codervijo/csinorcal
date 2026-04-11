@@ -22,6 +22,7 @@ from playwright.sync_api import Page, sync_playwright
 
 PROFILE_DIR = Path(__file__).parent / "playwright-profile"
 OUTPUT_FILE = Path(__file__).parent / "output" / "photos.json"
+COVERS_DIR = Path(__file__).parent / "output" / "covers"
 ALBUMS_URL = "https://photos.google.com/albums"
 
 
@@ -175,6 +176,39 @@ def scrape_albums(page: Page) -> list[dict]:
     return albums
 
 
+# ── Cover download ────────────────────────────────────────────────────────────
+
+def download_covers(page: Page, albums: list[dict]) -> list[dict]:
+    """Download cover images via the authenticated browser session and rewrite coverUrl to a local path."""
+    COVERS_DIR.mkdir(parents=True, exist_ok=True)
+
+    for album in albums:
+        remote_url = album.get("coverUrl") or ""
+        if not remote_url:
+            continue
+
+        album_id = album["id"]
+        local_file = COVERS_DIR / f"{album_id}.jpg"
+
+        # Skip if already downloaded
+        if local_file.exists():
+            album["coverUrl"] = f"covers/{album_id}.jpg"
+            continue
+
+        try:
+            response = page.request.get(remote_url, timeout=15_000)
+            if response.ok:
+                local_file.write_bytes(response.body())
+                album["coverUrl"] = f"covers/{album_id}.jpg"
+                print(f"  Downloaded cover: {album_id}.jpg")
+            else:
+                print(f"  Warning: cover fetch failed for {album_id} (HTTP {response.status})")
+        except Exception as e:
+            print(f"  Warning: cover fetch error for {album_id}: {e}")
+
+    return albums
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -200,9 +234,13 @@ def main():
         page.goto(ALBUMS_URL)
 
         scraped = scrape_albums(page)
+
+        print("\nDownloading cover images...")
+        scraped = download_covers(page, scraped)
+
         context.close()
 
-    # Merge: add new albums; also refresh coverUrl if it looks low-res
+    # Merge: add new albums; update cover if it's still a remote URL
     added = 0
     for album in scraped:
         url = album["albumUrl"]
@@ -210,9 +248,10 @@ def main():
             existing[url] = album
             added += 1
         else:
-            # Refresh cover if existing one is blocked or low-res
-            old_cover = existing[url].get("coverUrl") or ""
-            if "fife.usercontent" in old_cover or "=s24" in old_cover:
+            # Always refresh cover to local path if we now have one
+            if album["coverUrl"].startswith("covers/"):
+                existing[url]["coverUrl"] = album["coverUrl"]
+            elif not existing[url].get("coverUrl", "").startswith("covers/"):
                 existing[url]["coverUrl"] = album["coverUrl"]
 
     save(existing)
@@ -226,6 +265,7 @@ def main():
     print()
     print("  Copy to app:")
     print("    cp output/photos.json ../src/data/photos.json")
+    print("    cp -r output/covers ../public/album-covers")
 
 
 if __name__ == "__main__":
