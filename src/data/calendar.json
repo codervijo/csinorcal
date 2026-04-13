@@ -19,5 +19,33 @@
     "date": "Every Saturday",
     "time": "5:00 PM",
     "description": "Rehearsal for the church choir. All singers welcome!"
+  },
+  {
+    "id": 4,
+    "title": "Palm Sunday Service",
+    "date": "Mar 21, 2027",
+    "time": "10:00 AM",
+    "description": "We begin Holy Week by commemorating Jesus' triumphal entry into Jerusalem."
+  },
+  {
+    "id": 5,
+    "title": "Maundy Thursday Service",
+    "date": "Mar 25, 2027",
+    "time": "6:30 PM",
+    "description": "Service of Holy Communion and foot washing, commemorating the Last Supper."
+  },
+  {
+    "id": 6,
+    "title": "Good Friday Service",
+    "date": "Mar 26, 2027",
+    "time": "6:30 PM",
+    "description": "A solemn service of reflection and worship as we remember the crucifixion of our Lord."
+  },
+  {
+    "id": 7,
+    "title": "Easter Sunday Service",
+    "date": "Mar 28, 2027",
+    "time": "10:00 AM",
+    "description": "Celebrate the resurrection of Jesus Christ! Join us for a joyful Easter worship service."
   }
 ]
