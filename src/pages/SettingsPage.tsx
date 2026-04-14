@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -19,10 +20,10 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 export default function SettingsPage() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("churchUser") || '{"email":"guest@church.org"}');
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("churchUser");
+    logout();
     navigate("/login");
   };
 
@@ -38,12 +39,15 @@ export default function SettingsPage() {
       {/* Profile */}
       <Card sx={{ borderRadius: 3, mb: 2 }} elevation={2}>
         <CardContent sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Avatar sx={{ width: 56, height: 56, bgcolor: "#1a3c5e", fontSize: 24 }}>
-            {user.email.charAt(0).toUpperCase()}
+          <Avatar
+            src={user?.picture}
+            sx={{ width: 56, height: 56, bgcolor: "#1a3c5e", fontSize: 24 }}
+          >
+            {user?.name?.charAt(0).toUpperCase()}
           </Avatar>
           <Box>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>Profile</Typography>
-            <Typography variant="body2" color="text.secondary">{user.email}</Typography>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{user?.name}</Typography>
+            <Typography variant="body2" color="text.secondary">{user?.email}</Typography>
           </Box>
         </CardContent>
       </Card>

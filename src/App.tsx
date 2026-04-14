@@ -1,6 +1,9 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/contexts/AuthContext";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
 import HomePage from "./pages/HomePage";
 import DirectoryPage from "./pages/DirectoryPage";
@@ -18,28 +21,34 @@ import LoginPage from "./pages/LoginPage";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/directory" element={<DirectoryPage />} />
-            <Route path="/directory/:id" element={<FamilyDetailPage />} />
-            <Route path="/calendar" element={<CalendarPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/about/:id" element={<AboutDetailPage />} />
-            <Route path="/news/:id" element={<NewsDetailPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-            <Route path="/contributions" element={<ContributionsPage />} />
-            <Route path="/newsletters" element={<NewsletterPage />} />
-            <Route path="/photos" element={<PhotosPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route element={<AppLayout />}>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/directory" element={<DirectoryPage />} />
+                  <Route path="/directory/:id" element={<FamilyDetailPage />} />
+                  <Route path="/calendar" element={<CalendarPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/about/:id" element={<AboutDetailPage />} />
+                  <Route path="/news/:id" element={<NewsDetailPage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
+                  <Route path="/contributions" element={<ContributionsPage />} />
+                  <Route path="/newsletters" element={<NewsletterPage />} />
+                  <Route path="/photos" element={<PhotosPage />} />
+                </Route>
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </GoogleOAuthProvider>
 );
 
 export default App;
