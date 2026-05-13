@@ -24,3 +24,14 @@
 - [ ] Facebook, Instagram, and X (Twitter) social media integration
 - [ ] Finance/contributions tab with live data from church CRM
 - [ ] Release preparedness — PWA manifest, icons, deployment pipeline, production build verification
+
+## Problem
+
+<1-2 sentences: what is the user-facing problem this site solves?
+Who has it? Why does it matter?>
+
+## Users
+
+<Who's the target user? What do they care about? Roughly how many
+exist? What's their willingness to pay / engage?>
+
