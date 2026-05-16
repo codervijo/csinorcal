@@ -37,6 +37,23 @@ pnpm lint      # run ESLint
 ## Out of scope / don't touch
 - <!-- leave blank for user to fill -->
 
+## Dark project — no crawling
+
+This is a **dark project**: all content sits behind login and is intended
+only for CSI Nor-Cal members. It must not appear in search engines or
+public link previews.
+
+Rules for any agent working on this repo:
+- `public/robots.txt` must `Disallow: /` for every user agent. Do not
+  add allow-list entries for Googlebot, Bingbot, social crawlers, etc.
+- Do **not** generate or ship a `sitemap.xml`. Do not link to one from
+  `robots.txt` or anywhere else.
+- `index.html` must include `<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">`.
+- Do not add Open Graph / Twitter card metadata intended to surface the
+  site in social previews. Minimal OG tags for in-app sharing among
+  logged-in members are fine, but treat the public surface as hidden.
+- Do not register the site with Search Console, Bing Webmaster, etc.
+
 ## Status
 - **Next step:** Add authentication (Phase 2 / Phase 3)
 

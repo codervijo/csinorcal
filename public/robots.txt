@@ -1,14 +1,4 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
+; Dark project — members-only, login-gated. No crawling, no indexing.
+; See AI_AGENTS.md ("Dark project — no crawling") before changing this file.
 User-agent: *
-Allow: /
+Disallow: /
